@@ -21,7 +21,7 @@ const createDeck = () => {
     }
   }
 
-  console.log(deck);
+  //console.log(deck);
 
   deck = _.shuffle(deck);
   console.log(deck);
@@ -29,3 +29,16 @@ const createDeck = () => {
 };
 
 createDeck();
+
+// Function to hit card
+const hitCard = () => {
+  const card =
+    deck.length !== 0 ? deck.pop() : alert("There is no more card in deck");
+  //const card = deck.pop();
+
+  console.log(deck);
+  console.log(card);
+  return card;
+};
+
+hitCard();
