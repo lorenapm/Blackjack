@@ -13,8 +13,10 @@ let pointsPlayer = 0;
 let pointsComputer = 0;
 
 const btnHit = document.querySelector("#btHit");
-const pointsAll = document.querySelector("small");
+const btnStand = document.querySelector("#btnStand");
+const pointsAll = document.querySelectorAll("small");
 const divCardsPlayer = document.querySelector("#player-cards");
+const divCardsComputer = document.querySelector("#computer-cards");
 
 const createDeck = () => {
   for (let i = 2; i <= 10; i++) {
@@ -68,25 +70,53 @@ const valueCard = (card) => {
   return isNaN(value) ? (value === "A" ? 11 : 10) : parseInt(value);
 };
 
-//const value = valueCard(hitCard());
+//Computer's turn: como es automático tengo que usar while o do while
+const turnComputer = (pointsMinimum) => {
+  do {
+    const card = hitCard();
+
+    pointsComputer = pointsComputer + valueCard(card);
+    pointsAll[1].innerHTML = "Score: " + pointsComputer;
+
+    const imgCard = document.createElement("img");
+    imgCard.src = `assets/cartas/${card}.png`;
+    imgCard.classList.add("cards");
+    divCardsComputer.append(imgCard);
+
+    if (pointsMinimum > 21) {
+      break;
+    }
+  } while (pointsComputer < pointsMinimum && pointsMinimum <= 21);
+};
 
 //Events
 btnHit.addEventListener("click", () => {
   const card = hitCard();
 
   pointsPlayer = pointsPlayer + valueCard(card);
-  pointsAll.innerHTML = "Score: " + pointsPlayer;
+  pointsAll[0].innerHTML = "Score: " + pointsPlayer;
 
-  const cardPlayer = document.createElement("img");
-  cardPlayer.src = `assets/cartas/${card}.png`;
-  cardPlayer.classList.add("cards");
-  divCardsPlayer.append(cardPlayer);
+  const imgCard = document.createElement("img");
+  imgCard.src = `assets/cartas/${card}.png`;
+  imgCard.classList.add("cards");
+  divCardsPlayer.append(imgCard);
 
   if (pointsPlayer > 21) {
     console.log("Sorry, you're lost");
     btnHit.disabled = true;
+    btnStand.disabled = true;
+    turnComputer(pointsPlayer);
   } else if (pointsPlayer === 21) {
     console.log("Wow, 21 points!");
     btnHit.disabled = true;
+    btnStand.disabled = true;
+    turnComputer(pointsPlayer);
   }
+});
+
+btnStand.addEventListener("click", () => {
+  btnHit.disabled = true;
+  btnStand.disabled = true;
+
+  turnComputer(pointsPlayer);
 });
