@@ -41,4 +41,28 @@ const hitCard = () => {
   return card;
 };
 
-hitCard();
+//hitCard();
+
+//IMPORT todos los strings en JS pueden ser trabajados como un arreglo, por eso card[0] extrae la primera posición de la card (pero no me sirve para la card 10, por eso uso substring).
+// substring: método que permite retornar los valores de las posiciones que puedo establecer. En este caso, obvio el último elemento (así extraigo del 2-10 todos)
+// const valueCard = (card) => {
+//   const value = card.substring(0, card.length - 1);
+//   if (isNaN(value)) {
+//     //isNaN (no es un número): true (no es); false (es un número)
+//     //la única que vale 11 es el As, las otras J Q K valen 10.
+//     points = value === "A" ? 11 : 10;
+//     console.log(points);
+//   } else {
+//     points = parseInt(value);
+//   }
+
+//   console.log(points);
+// };
+
+const valueCard = (card) => {
+  const value = card.substring(0, card.length - 1);
+  return isNaN(value) ? (value === "A" ? 11 : 10) : parseInt(value);
+};
+
+const value = valueCard(hitCard());
+console.log({ value });
