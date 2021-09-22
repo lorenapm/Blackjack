@@ -9,6 +9,12 @@ let deck = [];
 const types = ["C", "D", "H", "S"];
 const specialCards = ["A", "J", "Q", "K"];
 
+let pointsPlayer = 0;
+let pointsComputer = 0;
+
+const btnHit = document.querySelector("#btHit");
+const pointsAll = document.querySelector("small");
+
 const createDeck = () => {
   for (let i = 2; i <= 10; i++) {
     for (let type of types) {
@@ -24,7 +30,7 @@ const createDeck = () => {
   //console.log(deck);
 
   deck = _.shuffle(deck);
-  console.log(deck);
+  //console.log(deck);
   return deck;
 };
 
@@ -35,9 +41,6 @@ const hitCard = () => {
   const card =
     deck.length !== 0 ? deck.pop() : alert("There is no more card in deck");
   //const card = deck.pop();
-
-  console.log(deck);
-  console.log(card);
   return card;
 };
 
@@ -64,5 +67,12 @@ const valueCard = (card) => {
   return isNaN(value) ? (value === "A" ? 11 : 10) : parseInt(value);
 };
 
-const value = valueCard(hitCard());
-console.log({ value });
+//const value = valueCard(hitCard());
+
+//Events
+btnHit.addEventListener("click", () => {
+  const card = hitCard();
+
+  pointsPlayer = pointsPlayer + valueCard(card);
+  pointsAll.innerHTML = pointsPlayer;
+});
