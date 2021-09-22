@@ -13,7 +13,7 @@ body {
   font-size: 25px;
 }
 
-.card {
+img.cards {
   position: relative;
   width: 150px;
   left: 100px;

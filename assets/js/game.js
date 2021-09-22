@@ -14,6 +14,7 @@ let pointsComputer = 0;
 
 const btnHit = document.querySelector("#btHit");
 const pointsAll = document.querySelector("small");
+const divCardsPlayer = document.querySelector("#player-cards");
 
 const createDeck = () => {
   for (let i = 2; i <= 10; i++) {
@@ -74,5 +75,18 @@ btnHit.addEventListener("click", () => {
   const card = hitCard();
 
   pointsPlayer = pointsPlayer + valueCard(card);
-  pointsAll.innerHTML = pointsPlayer;
+  pointsAll.innerHTML = "Score: " + pointsPlayer;
+
+  const cardPlayer = document.createElement("img");
+  cardPlayer.src = `assets/cartas/${card}.png`;
+  cardPlayer.classList.add("cards");
+  divCardsPlayer.append(cardPlayer);
+
+  if (pointsPlayer > 21) {
+    console.log("Sorry, you're lost");
+    btnHit.disabled = true;
+  } else if (pointsPlayer === 21) {
+    console.log("Wow, 21 points!");
+    btnHit.disabled = true;
+  }
 });
