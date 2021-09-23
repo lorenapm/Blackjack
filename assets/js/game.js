@@ -14,9 +14,10 @@ let pointsComputer = 0;
 
 const btnHit = document.querySelector("#btHit");
 const btnStand = document.querySelector("#btnStand");
+const btnNew = document.querySelector("#btnNew");
 const pointsAll = document.querySelectorAll("small");
-const divCardsPlayer = document.querySelector("#player-cards");
-const divCardsComputer = document.querySelector("#computer-cards");
+let divCardsPlayer = document.querySelector("#player-cards");
+let divCardsComputer = document.querySelector("#computer-cards");
 
 const createDeck = () => {
   for (let i = 2; i <= 10; i++) {
@@ -130,4 +131,21 @@ btnStand.addEventListener("click", () => {
   btnStand.disabled = true;
 
   turnComputer(pointsPlayer);
+});
+
+btnNew.addEventListener("click", () => {
+  deck = [];
+  deck = createDeck();
+
+  pointsPlayer = 0;
+  pointsComputer = 0;
+
+  pointsAll[0].innerText = "Score: " + 0;
+  pointsAll[1].innerText = "Score: " + 0;
+
+  divCardsComputer.innerHTML = "";
+  divCardsPlayer.innerHTML = "";
+
+  btnHit.disabled = false;
+  btnStand.disabled = false;
 });
