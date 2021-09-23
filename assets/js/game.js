@@ -87,6 +87,18 @@ const turnComputer = (pointsMinimum) => {
       break;
     }
   } while (pointsComputer < pointsMinimum && pointsMinimum <= 21);
+
+  setTimeout(() => {
+    if (pointsComputer > 21) {
+      alert("You've won :)");
+    } else if (pointsComputer === pointsMinimum) {
+      alert("Nobody wins :( ¡Try again!");
+    } else if (pointsMinimum > 21) {
+      alert("Computer won. Try again!");
+    } else {
+      alert("Computer won. Try again!");
+    }
+  }, 30);
 };
 
 //Events
@@ -102,7 +114,6 @@ btnHit.addEventListener("click", () => {
   divCardsPlayer.append(imgCard);
 
   if (pointsPlayer > 21) {
-    console.log("Sorry, you're lost");
     btnHit.disabled = true;
     btnStand.disabled = true;
     turnComputer(pointsPlayer);
