@@ -3,20 +3,30 @@
   "use strict";
 
   let deck = [];
-  const types = ["C", "D", "H", "S"];
-  const specialCards = ["A", "J", "Q", "K"];
+  const types = ["C", "D", "H", "S"],
+    specialCards = ["A", "J", "Q", "K"];
 
-  let pointsPlayer = 0;
-  let pointsComputer = 0;
+  let pointsPlayers = [];
 
-  const btnHit = document.querySelector("#btHit");
-  const btnStand = document.querySelector("#btnStand");
-  const btnNew = document.querySelector("#btnNew");
-  const pointsAll = document.querySelectorAll("small");
-  let divCardsPlayer = document.querySelector("#player-cards");
-  let divCardsComputer = document.querySelector("#computer-cards");
+  const btnHit = document.querySelector("#btHit"),
+    btnStand = document.querySelector("#btnStand"),
+    btnNew = document.querySelector("#btnNew"),
+    pointsAll = document.querySelectorAll("small");
+
+  let divCardsPlayer = document.querySelector("#player-cards"),
+    divCardsComputer = document.querySelector("#computer-cards");
+
+  //Function to initialize game
+  const initialGame = (numPlayers = 2) => {
+    deck = createDeck();
+    for (let i = 0; i < numPlayers; i++) {
+      pointsPlayers.push(0);
+      console.log({ pointsPlayers });
+    }
+  };
 
   const createDeck = () => {
+    deck = [];
     for (let i = 2; i <= 10; i++) {
       for (let type of types) {
         deck.push(i + type);
@@ -27,18 +37,13 @@
         deck.push(specialCard + type);
       }
     }
-
-    deck = _.shuffle(deck);
-    return deck;
+    return _.shuffle(deck);
   };
-
-  createDeck();
 
   // Function to hit card
   const hitCard = () => {
     const card =
       deck.length !== 0 ? deck.pop() : alert("There is no more card in deck");
-    //const card = deck.pop();
     return card;
   };
 
@@ -64,6 +69,8 @@
     const value = card.substring(0, card.length - 1);
     return isNaN(value) ? (value === "A" ? 11 : 10) : parseInt(value);
   };
+
+  const addPoints = () => {};
 
   //Computer's turn: como es automático tengo que usar while o do while
   const turnComputer = (pointsMinimum) => {
@@ -128,8 +135,10 @@
   });
 
   btnNew.addEventListener("click", () => {
-    deck = [];
-    deck = createDeck();
+    console.clear();
+    initialGame();
+    // deck = [];
+    // deck = createDeck();
 
     pointsPlayer = 0;
     pointsComputer = 0;
